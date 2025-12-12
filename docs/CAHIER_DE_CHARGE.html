@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des Charges - Système de Gestion de Stock Multi-Entrepôts</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        h4 {
+            color: #666;
+            margin-top: 15px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .header h1 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        .meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        .toc li {
+            margin: 5px 0;
+        }
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CAHIER DES CHARGES</h1>
+        <h2>Système de Gestion de Stock Multi-Entrepôts</h2>
+        <div class="meta">
+            <p><strong>Version:</strong> 1.0</p>
+            <p><strong>Date:</strong> 2024</p>
+            <p><strong>Auteur:</strong> Équipe de développement</p>
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>Table des matières</h2>
+        <ul>
+            <li><a href="#intro">1. Introduction</a></li>
+            <li><a href="#objectifs">2. Objectifs du projet</a></li>
+            <li><a href="#fonctionnalites">3. Fonctionnalités détaillées</a></li>
+            <li><a href="#architecture">4. Architecture technique</a></li>
+            <li><a href="#contraintes">5. Contraintes et règles métier</a></li>
+            <li><a href="#interface">6. Interface utilisateur</a></li>
+            <li><a href="#livrables">7. Livrables</a></li>
+            <li><a href="#tests">8. Tests et validation</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="intro">
+        <h1>1. Introduction</h1>
+        
+        <h2>1.1. Contexte</h2>
+        <p>Le présent projet consiste à développer une application Java permettant la gestion des produits dans plusieurs entrepôts, en assurant le suivi des quantités, des mouvements d'entrée et de sortie, et du transfert entre entrepôts.</p>
+        
+        <h2>1.2. Objectifs du projet</h2>
+        <ul>
+            <li>Gérer plusieurs entrepôts simultanément</li>
+            <li>Gérer un catalogue de produits</li>
+            <li>Suivre les mouvements de stock (entrée / sortie)</li>
+            <li>Gérer le transfert de produits entre entrepôts</li>
+            <li>Consulter l'état des stocks en temps réel</li>
+            <li>Générer des statistiques et rapports</li>
+        </ul>
+        
+        <h2>1.3. Portée du projet</h2>
+        <p>Application console Java avec interface menu interactif, persistance des données en fichiers JSON, et architecture modulaire respectant les principes de la POO.</p>
+    </div>
+
+    <div class="section" id="objectifs">
+        <h1>2. Objectifs du projet</h1>
+        
+        <h2>2.1. Objectifs fonctionnels</h2>
+        <ul>
+            <li><strong>Gestion des produits</strong> : CRUD complet (Créer, Lire, Modifier, Supprimer)</li>
+            <li><strong>Gestion des entrepôts</strong> : CRUD complet</li>
+            <li><strong>Mouvements de stock</strong> : Enregistrement des entrées et sorties</li>
+            <li><strong>Transferts</strong> : Gestion des transferts entre entrepôts</li>
+            <li><strong>Consultation</strong> : Consultation des stocks avec filtres avancés</li>
+            <li><strong>Statistiques</strong> : Génération de rapports et statistiques</li>
+        </ul>
+        
+        <h2>2.2. Objectifs techniques</h2>
+        <ul>
+            <li>Architecture modulaire et maintenable</li>
+            <li>Code Java propre et bien documenté</li>
+            <li>Persistance des données en JSON</li>
+            <li>Gestion d'erreurs robuste</li>
+            <li>Interface utilisateur intuitive</li>
+        </ul>
+    </div>
+
+    <div class="section" id="fonctionnalites">
+        <h1>3. Fonctionnalités détaillées</h1>
+        
+        <h2>3.1. Gestion des Produits</h2>
+        
+        <h3>3.1.1. Ajouter un produit</h3>
+        <p><strong>Description:</strong> Permet d'ajouter un nouveau produit au catalogue.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code produit (unique, obligatoire)</li>
+            <li>Nom du produit (obligatoire)</li>
+            <li>Description (optionnelle)</li>
+            <li>Prix unitaire (obligatoire, > 0)</li>
+        </ul>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le code produit doit être unique</li>
+            <li>Le prix doit être positif</li>
+        </ul>
+        <p><strong>Résultat:</strong> Produit ajouté et sauvegardé dans <code>data/produits.json</code></p>
+        
+        <h3>3.1.2. Modifier un produit</h3>
+        <p><strong>Description:</strong> Permet de modifier les informations d'un produit existant.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code produit (existant)</li>
+            <li>Nouveau nom</li>
+            <li>Nouvelle description</li>
+            <li>Nouveau prix unitaire</li>
+        </ul>
+        <p><strong>Contraintes:</strong> Le produit doit exister</p>
+        <p><strong>Résultat:</strong> Produit modifié et sauvegardé</p>
+        
+        <h3>3.1.3. Supprimer un produit</h3>
+        <p><strong>Description:</strong> Permet de supprimer un produit du catalogue.</p>
+        <p><strong>Données requises:</strong> Code produit (existant)</p>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le produit doit exister</li>
+            <li>Confirmation requise avant suppression</li>
+        </ul>
+        <p><strong>Résultat:</strong> Produit supprimé du catalogue</p>
+        
+        <h3>3.1.4. Lister les produits</h3>
+        <p><strong>Description:</strong> Affiche la liste complète de tous les produits.</p>
+        <p><strong>Résultat:</strong> Tableau formaté avec code, nom, description, prix</p>
+        
+        <h3>3.1.5. Rechercher un produit</h3>
+        <p><strong>Description:</strong> Recherche un produit par son code et affiche ses détails.</p>
+        <p><strong>Données requises:</strong> Code produit</p>
+        <p><strong>Résultat:</strong> Détails complets du produit + quantité totale en stock</p>
+        
+        <h2>3.2. Gestion des Entrepôts</h2>
+        
+        <h3>3.2.1. Ajouter un entrepôt</h3>
+        <p><strong>Description:</strong> Permet d'ajouter un nouvel entrepôt.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code entrepôt (unique, obligatoire)</li>
+            <li>Nom de l'entrepôt (obligatoire)</li>
+            <li>Adresse (obligatoire)</li>
+            <li>Capacité maximale (obligatoire, > 0)</li>
+        </ul>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le code entrepôt doit être unique</li>
+            <li>La capacité doit être positive</li>
+        </ul>
+        <p><strong>Résultat:</strong> Entrepôt ajouté et sauvegardé dans <code>data/entrepots.json</code></p>
+        
+        <h3>3.2.2. Modifier un entrepôt</h3>
+        <p><strong>Description:</strong> Permet de modifier les informations d'un entrepôt existant.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code entrepôt (existant)</li>
+            <li>Nouveau nom</li>
+            <li>Nouvelle adresse</li>
+            <li>Nouvelle capacité maximale</li>
+        </ul>
+        <p><strong>Contraintes:</strong> L'entrepôt doit exister</p>
+        <p><strong>Résultat:</strong> Entrepôt modifié et sauvegardé</p>
+        
+        <h3>3.2.3. Supprimer un entrepôt</h3>
+        <p><strong>Description:</strong> Permet de supprimer un entrepôt.</p>
+        <p><strong>Données requises:</strong> Code entrepôt (existant)</p>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>L'entrepôt doit exister</li>
+            <li>Confirmation requise avant suppression</li>
+            <li>Avertissement si l'entrepôt contient du stock</li>
+        </ul>
+        <p><strong>Résultat:</strong> Entrepôt supprimé</p>
+        
+        <h3>3.2.4. Lister les entrepôts</h3>
+        <p><strong>Description:</strong> Affiche la liste complète de tous les entrepôts.</p>
+        <p><strong>Résultat:</strong> Tableau formaté avec code, nom, adresse, capacité max</p>
+        
+        <h3>3.2.5. Rechercher un entrepôt</h3>
+        <p><strong>Description:</strong> Recherche un entrepôt par son code et affiche ses détails.</p>
+        <p><strong>Données requises:</strong> Code entrepôt</p>
+        <p><strong>Résultat:</strong> Détails complets de l'entrepôt + stock contenu</p>
+        
+        <h2>3.3. Mouvements de Stock</h2>
+        
+        <h3>3.3.1. Enregistrer une entrée de stock</h3>
+        <p><strong>Description:</strong> Enregistre l'arrivée de produits dans un entrepôt.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code produit (existant)</li>
+            <li>Code entrepôt (existant)</li>
+            <li>Quantité (obligatoire, > 0)</li>
+            <li>Commentaire (optionnel)</li>
+        </ul>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le produit doit exister</li>
+            <li>L'entrepôt doit exister</li>
+            <li>La quantité doit être positive</li>
+        </ul>
+        <p><strong>Résultat:</strong></p>
+        <ul>
+            <li>Mouvement enregistré dans <code>data/mouvements.json</code></li>
+            <li>Stock mis à jour automatiquement</li>
+        </ul>
+        
+        <h3>3.3.2. Enregistrer une sortie de stock</h3>
+        <p><strong>Description:</strong> Enregistre la sortie de produits d'un entrepôt.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code produit (existant)</li>
+            <li>Code entrepôt (existant)</li>
+            <li>Quantité (obligatoire, > 0)</li>
+            <li>Commentaire (optionnel)</li>
+        </ul>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le produit doit exister</li>
+            <li>L'entrepôt doit exister</li>
+            <li>La quantité doit être positive</li>
+            <li>Stock disponible suffisant</li>
+        </ul>
+        <p><strong>Résultat:</strong></p>
+        <ul>
+            <li>Mouvement enregistré</li>
+            <li>Stock déduit automatiquement</li>
+        </ul>
+        
+        <h3>3.3.3. Historique des mouvements</h3>
+        <p><strong>Description:</strong> Affiche l'historique complet de tous les mouvements.</p>
+        <p><strong>Résultat:</strong> Tableau avec ID, Type, Produit, Source, Destination, Quantité, Date, Commentaire</p>
+        
+        <h2>3.4. Transfert entre Entrepôts</h2>
+        
+        <h3>3.4.1. Transférer un produit</h3>
+        <p><strong>Description:</strong> Transfère des produits d'un entrepôt source vers un entrepôt destination.</p>
+        <p><strong>Données requises:</strong></p>
+        <ul>
+            <li>Code produit (existant)</li>
+            <li>Code entrepôt source (existant)</li>
+            <li>Code entrepôt destination (existant, différent de la source)</li>
+            <li>Quantité (obligatoire, > 0)</li>
+            <li>Commentaire (optionnel)</li>
+        </ul>
+        <p><strong>Contraintes:</strong></p>
+        <ul>
+            <li>Le produit doit exister</li>
+            <li>Les deux entrepôts doivent exister</li>
+            <li>L'entrepôt source et destination doivent être différents</li>
+            <li>Stock disponible suffisant dans l'entrepôt source</li>
+        </ul>
+        <p><strong>Résultat:</strong></p>
+        <ul>
+            <li>Mouvement de type TRANSFERT enregistré</li>
+            <li>Stock déduit de l'entrepôt source</li>
+            <li>Stock ajouté à l'entrepôt destination</li>
+        </ul>
+        
+        <h2>3.5. Consultation</h2>
+        
+        <h3>3.5.1. Quantité totale par produit</h3>
+        <p><strong>Description:</strong> Affiche la quantité totale d'un produit dans tous les entrepôts.</p>
+        <p><strong>Données requises:</strong> Code produit</p>
+        <p><strong>Résultat:</strong> Quantité totale affichée</p>
+        
+        <h3>3.5.2. Quantité par entrepôt</h3>
+        <p><strong>Description:</strong> Affiche la quantité d'un produit dans un entrepôt spécifique.</p>
+        <p><strong>Données requises:</strong> Code produit, Code entrepôt</p>
+        <p><strong>Résultat:</strong> Quantité affichée</p>
+        
+        <h3>3.5.3. Liste des mouvements filtrée par produit</h3>
+        <p><strong>Description:</strong> Affiche tous les mouvements d'un produit spécifique.</p>
+        <p><strong>Données requises:</strong> Code produit</p>
+        <p><strong>Résultat:</strong> Liste filtrée des mouvements</p>
+        
+        <h3>3.5.4. Liste des mouvements filtrée par date</h3>
+        <p><strong>Description:</strong> Affiche tous les mouvements dans une période donnée.</p>
+        <p><strong>Données requises:</strong> Date de début et date de fin (format: yyyy-MM-dd HH:mm)</p>
+        <p><strong>Résultat:</strong> Liste filtrée des mouvements</p>
+        
+        <h3>3.5.5. Liste des mouvements filtrée par produit et date</h3>
+        <p><strong>Description:</strong> Affiche les mouvements d'un produit dans une période donnée.</p>
+        <p><strong>Données requises:</strong> Code produit, Date de début, Date de fin</p>
+        <p><strong>Résultat:</strong> Liste filtrée des mouvements</p>
+        
+        <h2>3.6. Statistiques & Rapports</h2>
+        
+        <h3>3.6.1. Vue d'ensemble du stock</h3>
+        <p><strong>Description:</strong> Affiche un tableau récapitulatif du stock par produit et par entrepôt.</p>
+        <p><strong>Résultat:</strong> Tableau matriciel avec produits en lignes, entrepôts en colonnes, total par produit</p>
+        
+        <h3>3.6.2. Stock détaillé par entrepôt</h3>
+        <p><strong>Description:</strong> Affiche le stock détaillé de chaque entrepôt.</p>
+        <p><strong>Résultat:</strong> Pour chaque entrepôt, liste des produits avec leurs quantités</p>
+        
+        <h3>3.6.3. Produits en rupture de stock</h3>
+        <p><strong>Description:</strong> Identifie et affiche les produits avec stock zéro.</p>
+        <p><strong>Résultat:</strong> Liste des produits en rupture de stock</p>
+        
+        <h3>3.6.4. Top 10 produits</h3>
+        <p><strong>Description:</strong> Affiche les 10 produits avec les plus grandes quantités totales.</p>
+        <p><strong>Résultat:</strong> Classement décroissant des produits par quantité totale</p>
+        
+        <h3>3.6.5. Statistiques des mouvements</h3>
+        <p><strong>Description:</strong> Affiche un résumé statistique des mouvements.</p>
+        <p><strong>Résultat:</strong></p>
+        <ul>
+            <li>Nombre total de mouvements</li>
+            <li>Nombre d'entrées (avec quantité totale)</li>
+            <li>Nombre de sorties (avec quantité totale)</li>
+            <li>Nombre de transferts</li>
+        </ul>
+        
+        <h3>3.6.6. Rapport complet</h3>
+        <p><strong>Description:</strong> Génère un rapport complet avec toutes les statistiques.</p>
+        <p><strong>Résultat:</strong> Document récapitulatif incluant:</p>
+        <ul>
+            <li>Statistiques générales</li>
+            <li>Vue d'ensemble du stock</li>
+            <li>Produits en rupture</li>
+            <li>Statistiques des mouvements</li>
+        </ul>
+    </div>
+
+    <div class="section" id="architecture">
+        <h1>4. Architecture technique</h1>
+        
+        <h2>4.1. Structure des packages</h2>
+        <pre><code>com.project.stock/
+├── models/          → Classes métiers (Produit, Entrepot, MouvementStock)
+├── services/        → Logique métier (ProduitService, EntrepotService, StockService)
+├── repository/      → Couche de persistance (fichiers JSON)
+├── utils/           → Utilitaires (FileHelper, JsonHelper)
+├── exceptions/      → Exceptions personnalisées
+└── Main.java        → Point d'entrée de l'application</code></pre>
+        
+        <h2>4.2. Technologies utilisées</h2>
+        <ul>
+            <li><strong>Langage:</strong> Java 11</li>
+            <li><strong>Bibliothèque JSON:</strong> Jackson 2.15.2</li>
+            <li><strong>Gestion de dépendances:</strong> Maven</li>
+            <li><strong>Format de données:</strong> JSON</li>
+            <li><strong>Interface:</strong> Console avec menu interactif</li>
+        </ul>
+        
+        <h2>4.3. Persistance des données</h2>
+        <p>Les données sont sauvegardées dans des fichiers JSON:</p>
+        <ul>
+            <li><code>data/produits.json</code> → Liste des produits</li>
+            <li><code>data/entrepots.json</code> → Liste des entrepôts</li>
+            <li><code>data/mouvements.json</code> → Historique des mouvements</li>
+        </ul>
+        
+        <h2>4.4. Principes de conception</h2>
+        <ul>
+            <li>Séparation des responsabilités (Models, Services, Repositories)</li>
+            <li>Single Responsibility Principle</li>
+            <li>DRY (Don't Repeat Yourself)</li>
+            <li>Gestion d'erreurs avec exceptions personnalisées</li>
+            <li>Validation des données avant traitement</li>
+        </ul>
+    </div>
+
+    <div class="section" id="contraintes">
+        <h1>5. Contraintes et règles métier</h1>
+        
+        <h2>5.1. Contraintes de données</h2>
+        <ul>
+            <li>Les codes (produit, entrepôt) doivent être uniques</li>
+            <li>Les quantités doivent être positives (> 0)</li>
+            <li>Les prix doivent être positifs (> 0)</li>
+            <li>Les capacités d'entrepôt doivent être positives (> 0)</li>
+        </ul>
+        
+        <h2>5.2. Règles métier</h2>
+        <ul>
+            <li>Un produit ne peut pas être supprimé s'il a des mouvements associés (optionnel)</li>
+            <li>Une sortie ne peut pas être effectuée si le stock est insuffisant</li>
+            <li>Un transfert nécessite un stock suffisant dans l'entrepôt source</li>
+            <li>Le stock est calculé automatiquement à partir des mouvements</li>
+            <li>Les transferts sont enregistrés comme un seul mouvement de type TRANSFERT</li>
+        </ul>
+        
+        <h2>5.3. Gestion des erreurs</h2>
+        <ul>
+            <li><strong>ProduitNotFound:</strong> Levée quand un produit n'existe pas</li>
+            <li><strong>EntrepotNotFound:</strong> Levée quand un entrepôt n'existe pas</li>
+            <li><strong>IllegalArgumentException:</strong> Levée pour données invalides</li>
+            <li><strong>IOException:</strong> Gérée pour les opérations de fichiers</li>
+        </ul>
+    </div>
+
+    <div class="section" id="interface">
+        <h1>6. Interface utilisateur</h1>
+        
+        <h2>6.1. Menu principal</h2>
+        <p>L'application propose un menu principal avec les options suivantes:</p>
+        <ol>
+            <li><strong>Gestion des Produits</strong></li>
+            <li><strong>Gestion des Entrepôts</strong></li>
+            <li><strong>Mouvements de Stock</strong></li>
+            <li><strong>Transfert entre Entrepôts</strong></li>
+            <li><strong>Consultation</strong></li>
+            <li><strong>Statistiques & Rapports</strong></li>
+            <li><strong>0. Quitter</strong></li>
+        </ol>
+        
+        <h2>6.2. Caractéristiques de l'interface</h2>
+        <ul>
+            <li>Menus hiérarchiques clairs</li>
+            <li>Messages de confirmation pour les actions importantes</li>
+            <li>Affichage formaté en tableaux</li>
+            <li>Messages d'erreur explicites</li>
+            <li>Validation des saisies utilisateur</li>
+        </ul>
+    </div>
+
+    <div class="section" id="livrables">
+        <h1>7. Livrables</h1>
+        
+        <h2>7.1. Code source</h2>
+        <ul>
+            <li>Code Java complet et commenté</li>
+            <li>Structure de packages respectée</li>
+            <li>Gestion d'erreurs complète</li>
+            <li>Documentation du code (JavaDoc)</li>
+        </ul>
+        
+        <h2>7.2. Documentation</h2>
+        <ul>
+            <li><strong>README.md</strong> : Instructions d'installation et d'utilisation</li>
+            <li><strong>Cahier des charges</strong> : Ce document</li>
+            <li><strong>Diagrammes UML</strong> : Diagrammes de classes et de séquences</li>
+            <li><strong>Guide utilisateur</strong> : Documentation de l'interface</li>
+        </ul>
+        
+        <h2>7.3. Fichiers de configuration</h2>
+        <ul>
+            <li><code>pom.xml</code> : Configuration Maven</li>
+            <li>Structure de dossiers conforme aux standards Java</li>
+        </ul>
+    </div>
+
+    <div class="section" id="tests">
+        <h1>8. Tests et validation</h1>
+        
+        <h2>8.1. Scénarios de test recommandés</h2>
+        
+        <h3>Tests fonctionnels</h3>
+        <ul>
+            <li>Ajout/modification/suppression de produits</li>
+            <li>Ajout/modification/suppression d'entrepôts</li>
+            <li>Enregistrement d'entrées et sorties</li>
+            <li>Transferts entre entrepôts</li>
+            <li>Consultation des stocks</li>
+            <li>Génération de statistiques</li>
+        </ul>
+        
+        <h3>Tests de validation</h3>
+        <ul>
+            <li>Vérification de l'unicité des codes</li>
+            <li>Vérification des contraintes de données</li>
+            <li>Vérification de la cohérence des stocks</li>
+            <li>Vérification de la persistance des données</li>
+        </ul>
+        
+        <h3>Tests d'erreurs</h3>
+        <ul>
+            <li>Produit/entrepôt inexistant</li>
+            <li>Stock insuffisant</li>
+            <li>Données invalides</li>
+            <li>Fichiers corrompus</li>
+        </ul>
+        
+        <h2>8.2. Cas d'usage</h2>
+        
+        <h3>Cas d'usage 1: Gestion complète d'un produit</h3>
+        <ol>
+            <li>Ajouter un produit</li>
+            <li>Ajouter des produits en stock (entrée)</li>
+            <li>Consulter le stock</li>
+            <li>Effectuer une sortie</li>
+            <li>Consulter l'historique</li>
+        </ol>
+        
+        <h3>Cas d'usage 2: Transfert entre entrepôts</h3>
+        <ol>
+            <li>Créer deux entrepôts</li>
+            <li>Ajouter du stock dans l'entrepôt 1</li>
+            <li>Transférer vers l'entrepôt 2</li>
+            <li>Vérifier les stocks des deux entrepôts</li>
+        </ol>
+        
+        <h3>Cas d'usage 3: Génération de rapports</h3>
+        <ol>
+            <li>Créer plusieurs produits et entrepôts</li>
+            <li>Effectuer plusieurs mouvements</li>
+            <li>Générer le rapport complet</li>
+            <li>Consulter les statistiques</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h1>9. Conclusion</h1>
+        <p>Ce cahier des charges définit les spécifications complètes du système de gestion de stock multi-entrepôts. L'application répond aux besoins de gestion des produits, entrepôts et mouvements de stock avec une architecture modulaire et maintenable.</p>
+    </div>
+
+    <div style="page-break-before: always; text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #ddd;">
+        <p style="color: #7f8c8d;">Fin du document</p>
+        <p style="color: #7f8c8d; font-size: 0.9em;">Système de Gestion de Stock Multi-Entrepôts - Version 1.0</p>
+    </div>
+
+</body>
+</html>
+
+
