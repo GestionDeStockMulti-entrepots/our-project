@@ -1,0 +1,11 @@
+[ {
+  "code" : "ENT01",
+  "nom" : "DEPOT CASA",
+  "adresse" : "CASABLANCA",
+  "capaciteMax" : 1000.0
+}, {
+  "code" : "ENT02",
+  "nom" : "DEPOT TANGER",
+  "adresse" : "TANGER",
+  "capaciteMax" : 500.0
+} ]
