@@ -156,9 +156,24 @@ CREATE TABLE movement (
 
 ## Documentation & UML
 
-UML diagrams (class and sequence) and the project specification are available in the `docs/` folder.
+## 🖼️ Design & Conception (UML)
 
-See: docs/CAHIER_DE_CHARGE.md and diagrams in the `docs/` directory.
+The system design follows a modular approach. Below are the core UML diagrams representing the architecture:
+
+### Class Diagram
+![Class Diagram](docs/diagramme_classes.png)
+
+### Sequence Diagram (Example: Transfer Operation)
+![Sequence Diagram](docs/diagramme_sequence_transfert.png)
+
+---
+
+## 📋 Functional Analysis
+Based on the project requirements, the following core functionalities were implemented:
+- **Product & Warehouse Management:** Full CRUD operations.
+- **Stock Movements:** Automated tracking of ENTRY and EXIT logs.
+- **Atomic Transfers:** Ensures stock consistency when moving items between warehouses.
+- **Real-time Inventory:** Dynamic calculation of stock levels from movement history.
 
 ---
 
